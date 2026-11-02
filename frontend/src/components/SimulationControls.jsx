@@ -7,25 +7,32 @@ export default function SimulationControls({ onScanDispatched }) {
 
   const simulateCards = [
     {
-      name: "Rahul's Card",
-      studentId: 'STU001',
+      name: "Rishabh's Card",
+      studentId: '23BIT054',
       uid: 'A1B2C3D4',
       bg: 'hover:bg-blue-50 hover:border-blue-300 text-blue-900',
       badge: 'bg-blue-100 text-blue-800',
     },
     {
-      name: "Priya's Card",
-      studentId: 'STU002',
+      name: "Krish's Card",
+      studentId: '23BIT282D',
       uid: 'E5F6A7B8',
       bg: 'hover:bg-purple-50 hover:border-purple-300 text-purple-900',
       badge: 'bg-purple-100 text-purple-800',
     },
     {
-      name: "Arjun's Card",
-      studentId: 'STU003',
+      name: "Pal's Card",
+      studentId: '23BIT066',
       uid: 'C9D0E1F2',
       bg: 'hover:bg-indigo-50 hover:border-indigo-300 text-indigo-900',
       badge: 'bg-indigo-100 text-indigo-800',
+    },
+    {
+      name: "Krisha's Card",
+      studentId: '23BIT063',
+      uid: 'B3C4D5E6',
+      bg: 'hover:bg-emerald-50 hover:border-emerald-300 text-emerald-900',
+      badge: 'bg-emerald-100 text-emerald-800',
     },
     {
       name: 'Unknown Card',
@@ -72,7 +79,7 @@ export default function SimulationControls({ onScanDispatched }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
         {simulateCards.map((card) => {
           const isLoading = loadingCard === card.uid;
           return (

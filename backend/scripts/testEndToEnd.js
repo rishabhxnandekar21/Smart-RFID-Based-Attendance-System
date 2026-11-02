@@ -56,8 +56,8 @@ async function runTests() {
     }
     console.log('  ✓ Test 0 Passed: Server and MongoDB are healthy.\n');
 
-    // 2. Test 1: Successful scan for Rahul (A1B2C3D4)
-    console.log("[Test 1] Testing Successful Scan for Rahul Sharma (A1B2C3D4)...");
+    // 2. Test 1: Successful scan for Rishabh Nandekar (A1B2C3D4)
+    console.log("[Test 1] Testing Successful Scan for Rishabh Nandekar (A1B2C3D4)...");
     const scan1 = await makeRequest('/api/attendance/test-scan', 'POST', {
       uid: 'A1B2C3D4',
       deviceId: 'TEST_RUNNER',
@@ -66,13 +66,13 @@ async function runTests() {
     if (scan1.status !== 200 || scan1.data.status !== 'success') {
       throw new Error(`Test 1 Failed: Expected status success, got ${scan1.data.status}`);
     }
-    if (scan1.data.studentName !== 'Rahul Sharma') {
-      throw new Error(`Test 1 Failed: Expected student Rahul Sharma, got ${scan1.data.studentName}`);
+    if (scan1.data.studentName !== 'Rishabh Nandekar') {
+      throw new Error(`Test 1 Failed: Expected student Rishabh Nandekar, got ${scan1.data.studentName}`);
     }
-    console.log('  ✓ Test 1 Passed: Rahul attendance recorded successfully.\n');
+    console.log('  ✓ Test 1 Passed: Rishabh attendance recorded successfully.\n');
 
-    // 3. Test 2: Immediate duplicate scan for Rahul (should be rejected by 10s cooldown)
-    console.log("[Test 2] Testing Immediate Duplicate Scan for Rahul after 2 seconds...");
+    // 3. Test 2: Immediate duplicate scan for Rishabh (should be rejected by 10s cooldown)
+    console.log("[Test 2] Testing Immediate Duplicate Scan for Rishabh after 2 seconds...");
     await delay(2000);
     const scan2 = await makeRequest('/api/attendance/test-scan', 'POST', {
       uid: 'A1B2C3D4',
@@ -87,17 +87,17 @@ async function runTests() {
     }
     console.log(`  ✓ Test 2 Passed: Duplicate correctly rejected with ${scan2.data.remainingSeconds}s cooldown.\n`);
 
-    // 4. Test 4: Independent cards - Priya (E5F6A7B8) should succeed while Rahul is still in cooldown!
-    console.log("[Test 4] Testing Independent Card: Priya Patel (E5F6A7B8) while Rahul is in cooldown...");
-    const scanPriya = await makeRequest('/api/attendance/test-scan', 'POST', {
+    // 4. Test 4: Independent cards - Krish Shah (E5F6A7B8) should succeed while Rishabh is still in cooldown!
+    console.log("[Test 4] Testing Independent Card: Krish Shah (E5F6A7B8) while Rishabh is in cooldown...");
+    const scanKrish = await makeRequest('/api/attendance/test-scan', 'POST', {
       uid: 'E5F6A7B8',
       deviceId: 'TEST_RUNNER',
     });
-    console.log('  -> Priya scan response:', scanPriya.data);
-    if (scanPriya.status !== 200 || scanPriya.data.status !== 'success') {
-      throw new Error(`Test 4 Failed: Priya should succeed, got ${scanPriya.data.status}`);
+    console.log('  -> Krish scan response:', scanKrish.data);
+    if (scanKrish.status !== 200 || scanKrish.data.status !== 'success') {
+      throw new Error(`Test 4 Failed: Krish should succeed, got ${scanKrish.data.status}`);
     }
-    console.log('  ✓ Test 4 Passed: Priya succeeded independently of Rahul.\n');
+    console.log('  ✓ Test 4 Passed: Krish succeeded independently of Rishabh.\n');
 
     // 5. Test 5: Unknown card tap (F987D654)
     console.log("[Test 5] Testing Unknown Card (F987D654)...");
@@ -112,8 +112,8 @@ async function runTests() {
     console.log('  ✓ Test 5 Passed: Unknown card rejected without creating attendance.\n');
 
     // 6. Test 8: Concurrency / Simultaneous scans race condition test
-    // Fire two identical scans for Arjun Mehta (C9D0E1F2) at the exact same millisecond
-    console.log("[Test 8] Testing Simultaneous Concurrency for Arjun Mehta (C9D0E1F2)...");
+    // Fire two identical scans for Pal Patel (C9D0E1F2) at the exact same millisecond
+    console.log("[Test 8] Testing Simultaneous Concurrency for Pal Patel (C9D0E1F2)...");
     const [simul1, simul2] = await Promise.all([
       makeRequest('/api/attendance/test-scan', 'POST', { uid: 'C9D0E1F2', deviceId: 'SIMUL_A' }),
       makeRequest('/api/attendance/test-scan', 'POST', { uid: 'C9D0E1F2', deviceId: 'SIMUL_B' }),
@@ -128,6 +128,18 @@ async function runTests() {
       throw new Error(`Test 8 Failed: Expected exactly 1 success and 1 duplicate, got ${successCount} success and ${duplicateCount} duplicate`);
     }
     console.log('  ✓ Test 8 Passed: Atomic database cooldown prevented race condition. Exactly 1 accepted.\n');
+
+    // 7. Test 9: Krisha Desai (B3C4D5E6)
+    console.log("[Test 9] Testing Scan for Krisha Desai (B3C4D5E6)...");
+    const scanKrisha = await makeRequest('/api/attendance/test-scan', 'POST', {
+      uid: 'B3C4D5E6',
+      deviceId: 'TEST_RUNNER',
+    });
+    console.log('  -> Krisha scan response:', scanKrisha.data);
+    if (scanKrisha.status !== 200 || scanKrisha.data.status !== 'success') {
+      throw new Error(`Test 9 Failed: Krisha should succeed, got ${scanKrisha.data.status}`);
+    }
+    console.log('  ✓ Test 9 Passed: Krisha attendance recorded successfully.\n');
 
     // 7. Test 6: Verify MongoDB Persistence & Tables
     console.log("[Test 6] Verifying Data Persistence in MongoDB via REST APIs...");

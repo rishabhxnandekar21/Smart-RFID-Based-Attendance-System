@@ -179,7 +179,7 @@ npm install
 # Copy environment variables
 cp .env.example .env
 
-# Seed the default 3 sample students
+# Seed the 4 registered student RFID cards
 npm run seed
 
 # Start development backend
@@ -234,20 +234,21 @@ VITE_SOCKET_URL=http://localhost:5001
 When physical ESP32 hardware is not yet connected:
 1. Open the dashboard at `http://localhost:5173`.
 2. Locate the **Test RFID Scanning** panel.
-3. **Test 1 (Success)**: Click **Simulate Rahul's Card**.
+3. **Test 1 (Success)**: Click **Simulate Rishabh's Card**.
    - Notice the green checkmark modal: *"ATTENDANCE MARKED SUCCESSFULLY!"*.
-   - Rahul's attendance appears instantly in **Today's Attendance**.
-   - Rahul's card displays a **10s cooldown timer**.
-4. **Test 2 (Duplicate Cooldown)**: Click **Simulate Rahul's Card** again after 3 seconds.
+   - Rishabh's attendance appears instantly in **Today's Attendance**.
+   - Rishabh's card displays a **10s cooldown timer**.
+4. **Test 2 (Duplicate Cooldown)**: Click **Simulate Rishabh's Card** again after 3 seconds.
    - Notice the yellow warning modal: *"DUPLICATE SCAN! Please wait before scanning again. Remaining: 7 seconds"*.
    - No duplicate record is added to the attendance table.
    - The rejected attempt is logged in **RFID Scan History**.
-5. **Test 3 (Independent Card)**: Immediately click **Simulate Priya's Card**.
-   - Priya's attendance is marked successfully, demonstrating independent cooldown timers.
-6. **Test 4 (Unknown Card)**: Click **Simulate Unknown Card**.
+5. **Test 3 (Independent Card)**: Immediately click **Simulate Krish's Card**.
+   - Krish's attendance is marked successfully, demonstrating independent cooldown timers.
+6. **Test 4 (Pal & Krisha)**: Test scans for Pal Patel and Krisha Desai.
+7. **Test 5 (Unknown Card)**: Click **Simulate Unknown Card**.
    - Red alert modal appears: *"UNKNOWN RFID CARD! This card is not registered."*.
    - No attendance is recorded.
-7. **Test 5 (Refresh Persistence)**: Refresh your browser.
+8. **Test 6 (Refresh Persistence)**: Refresh your browser.
    - All attendance entries, scan history, and active cooldown countdowns are retrieved directly from MongoDB.
 
 ---

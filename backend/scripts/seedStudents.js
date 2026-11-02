@@ -11,32 +11,44 @@ dotenv.config({ path: path.join(__dirname, '../.env') });
 
 export const SAMPLE_STUDENTS = [
   {
-    name: 'Rahul Sharma',
-    studentId: 'STU001',
+    name: 'Rishabh Nandekar',
+    studentId: '23BIT054',
     rfidUid: 'A1B2C3D4',
   },
   {
-    name: 'Priya Patel',
-    studentId: 'STU002',
+    name: 'Krish Shah',
+    studentId: '23BIT282D',
     rfidUid: 'E5F6A7B8',
   },
   {
-    name: 'Arjun Mehta',
-    studentId: 'STU003',
+    name: 'Pal Patel',
+    studentId: '23BIT066',
     rfidUid: 'C9D0E1F2',
+  },
+  {
+    name: 'Krisha Desai',
+    studentId: '23BIT063',
+    rfidUid: 'B3C4D5E6',
   },
 ];
 
 export async function seedStudents() {
   try {
+    const validStudentIds = SAMPLE_STUDENTS.map((s) => s.studentId);
+    
+    // Remove previous sample students that are not in the new 4-student list
+    await Student.deleteMany({ studentId: { $nin: validStudentIds } });
+
     for (const studentData of SAMPLE_STUDENTS) {
       await Student.findOneAndUpdate(
         { studentId: studentData.studentId },
         {
-          $setOnInsert: {
+          $set: {
             name: studentData.name,
             studentId: studentData.studentId,
             rfidUid: studentData.rfidUid.toUpperCase(),
+          },
+          $setOnInsert: {
             lastAttendanceTimestamp: null,
             totalAttendance: 0,
             totalDuplicates: 0,
@@ -60,7 +72,7 @@ export async function seedStudents() {
       { upsert: true, new: true }
     );
 
-    console.log('[Seed] Sample students and default device checked/initialized.');
+    console.log('[Seed] 4 registered students and default device checked/initialized.');
   } catch (error) {
     console.error('[Seed] Error seeding students:', error.message);
   }

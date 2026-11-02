@@ -108,11 +108,11 @@ When you tap an RFID card:
 [MQTT TX] Published scan event to attendance/ESP32_01/scan: {"eventId":"scan-ESP32_01-1240-8472","uid":"A1B2C3D4","deviceId":"ESP32_01"}
 
 [MQTT RX] Topic: attendance/ESP32_01/result
-[MQTT RX] Payload: {"eventId":"scan-ESP32_01-1240-8472","uid":"A1B2C3D4","status":"success","studentName":"Rahul Sharma","studentId":"STU001","message":"Attendance marked successfully"}
+[MQTT RX] Payload: {"eventId":"scan-ESP32_01-1240-8472","uid":"A1B2C3D4","status":"success","studentName":"Rishabh Nandekar","studentId":"23BIT054","message":"Attendance marked successfully"}
 ================================================
 >>>>> [RESULT: SUCCESS] ATTENDANCE CONFIRMED! <<<<<
-Student: Rahul Sharma
-Student ID: STU001
+Student: Rishabh Nandekar
+Student ID: 23BIT054
 Message: Attendance marked successfully
 ================================================
 ```
