@@ -1,0 +1,22 @@
+{
+  "name": "rfid-attendance-backend",
+  "version": "1.0.0",
+  "description": "Backend API, MQTT broker integration, and Socket.IO real-time server for RFID Attendance Monitor",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "seed": "node scripts/seedStudents.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "express-rate-limit": "^7.5.0",
+    "helmet": "^8.0.0",
+    "mongoose": "^8.9.5",
+    "mqtt": "^5.10.3",
+    "socket.io": "^4.8.1"
+  }
+}
