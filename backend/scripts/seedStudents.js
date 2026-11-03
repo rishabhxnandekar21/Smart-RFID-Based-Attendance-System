@@ -13,7 +13,7 @@ export const SAMPLE_STUDENTS = [
   {
     name: 'Rishabh Nandekar',
     studentId: '23BIT054',
-    rfidUid: 'A1B2C3D4',
+    rfidUid: 'F9663015',
   },
   {
     name: 'Krish Shah',

@@ -9,7 +9,7 @@ export default function SimulationControls({ onScanDispatched }) {
     {
       name: "Rishabh's Card",
       studentId: '23BIT054',
-      uid: 'A1B2C3D4',
+      uid: 'F9663015',
       bg: 'hover:bg-blue-50 hover:border-blue-300 text-blue-900',
       badge: 'bg-blue-100 text-blue-800',
       simulatedName: 'Rishabh Nandekar',

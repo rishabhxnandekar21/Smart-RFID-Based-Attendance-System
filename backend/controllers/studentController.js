@@ -91,3 +91,43 @@ export async function getStudentById(req, res) {
     res.status(500).json({ success: false, message: error.message });
   }
 }
+
+export async function updateStudentRfid(req, res) {
+  try {
+    const { studentId } = req.params;
+    const { rfidUid } = req.body;
+    if (!rfidUid) {
+      return res.status(400).json({ success: false, message: 'rfidUid is required' });
+    }
+    const cleanUid = rfidUid.trim().toUpperCase();
+
+    // Check if another student has this UID
+    const existing = await Student.findOne({
+      rfidUid: cleanUid,
+      studentId: { $ne: studentId.toUpperCase() },
+    });
+    if (existing) {
+      return res.status(400).json({
+        success: false,
+        message: `RFID UID ${cleanUid} is already assigned to ${existing.name}`,
+      });
+    }
+
+    const updated = await Student.findOneAndUpdate(
+      { studentId: studentId.toUpperCase() },
+      { $set: { rfidUid: cleanUid } },
+      { new: true }
+    );
+    if (!updated) {
+      return res.status(404).json({ success: false, message: 'Student not found' });
+    }
+
+    res.json({
+      success: true,
+      message: `Assigned RFID UID ${cleanUid} to ${updated.name}`,
+      data: updated,
+    });
+  } catch (error) {
+    res.status(500).json({ success: false, message: error.message });
+  }
+}

@@ -2,6 +2,7 @@ import express from 'express';
 import {
   getStudents,
   getStudentById,
+  updateStudentRfid,
 } from '../controllers/studentController.js';
 import {
   getAttendance,
@@ -26,6 +27,7 @@ router.get('/devices/status', getDevicesStatus);
 // Students
 router.get('/students', getStudents);
 router.get('/students/:studentId', getStudentById);
+router.put('/students/:studentId/assign-rfid', updateStudentRfid);
 
 // Attendance
 router.get('/attendance', getAttendance);
@@ -44,7 +46,8 @@ router.get('/scans/student/:studentId', (req, res) => {
 router.get('/cooldown', getCooldown);
 router.get('/cooldown/:uid', getCooldown);
 
-// Simulation / Testing
+// Scanning (Hardware & Simulation)
+router.post('/attendance/scan', testScan);
 router.post('/attendance/test-scan', testScan);
 
 export default router;
