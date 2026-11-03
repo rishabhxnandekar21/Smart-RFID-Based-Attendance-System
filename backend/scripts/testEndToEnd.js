@@ -99,17 +99,34 @@ async function runTests() {
     }
     console.log('  ✓ Test 4 Passed: Krish succeeded independently of Rishabh.\n');
 
-    // 5. Test 5: Unknown card tap (F987D654)
-    console.log("[Test 5] Testing Unknown Card (F987D654)...");
+    // 5. Test 5A: Unknown card tap - Tejas Singh (D1E2F3A4)
+    console.log("[Test 5A] Testing Unknown Card - Tejas Singh (D1E2F3A4)...");
+    const scanTejas = await makeRequest('/api/attendance/test-scan', 'POST', {
+      uid: 'D1E2F3A4',
+      deviceId: 'TEST_RUNNER',
+      simulatedName: 'Tejas Singh',
+    });
+    console.log('  -> Tejas Singh response:', scanTejas.data);
+    if (scanTejas.status !== 404 || scanTejas.data.status !== 'unknown') {
+      throw new Error(`Test 5A Failed: Expected unknown (404), got ${scanTejas.status}`);
+    }
+    if (!scanTejas.data.studentName.includes('Tejas Singh')) {
+      throw new Error(`Test 5A Failed: Expected studentName to mention Tejas Singh, got ${scanTejas.data.studentName}`);
+    }
+    console.log('  ✓ Test 5A Passed: Tejas Singh synthetic profile rejected as unauthorized card.\n');
+
+    // 5B. Test 5B: Generic Unknown card tap (F987D654)
+    console.log("[Test 5B] Testing Generic Unknown Card (F987D654)...");
     const scanUnknown = await makeRequest('/api/attendance/test-scan', 'POST', {
       uid: 'F987D654',
       deviceId: 'TEST_RUNNER',
+      simulatedName: 'Unknown Card',
     });
     console.log('  -> Unknown card response:', scanUnknown.data);
     if (scanUnknown.status !== 404 || scanUnknown.data.status !== 'unknown') {
-      throw new Error(`Test 5 Failed: Expected unknown (404), got ${scanUnknown.status}`);
+      throw new Error(`Test 5B Failed: Expected unknown (404), got ${scanUnknown.status}`);
     }
-    console.log('  ✓ Test 5 Passed: Unknown card rejected without creating attendance.\n');
+    console.log('  ✓ Test 5B Passed: Generic unknown card rejected without creating attendance.\n');
 
     // 6. Test 8: Concurrency / Simultaneous scans race condition test
     // Fire two identical scans for Pal Patel (C9D0E1F2) at the exact same millisecond

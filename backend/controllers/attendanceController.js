@@ -129,7 +129,7 @@ export async function testScan(req, res) {
       });
     }
 
-    const { uid, deviceId = 'SIMULATOR_01' } = req.body;
+    const { uid, deviceId = 'SIMULATOR_01', simulatedName } = req.body;
     if (!uid) {
       return res.status(400).json({
         success: false,
@@ -142,6 +142,7 @@ export async function testScan(req, res) {
     const result = await processRfidScan({
       uid,
       deviceId,
+      simulatedName,
       socketIo,
       mqttPublish: publishMqttMessage,
     });

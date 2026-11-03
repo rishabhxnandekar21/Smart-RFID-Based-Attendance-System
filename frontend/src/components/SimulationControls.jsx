@@ -12,6 +12,7 @@ export default function SimulationControls({ onScanDispatched }) {
       uid: 'A1B2C3D4',
       bg: 'hover:bg-blue-50 hover:border-blue-300 text-blue-900',
       badge: 'bg-blue-100 text-blue-800',
+      simulatedName: 'Rishabh Nandekar',
     },
     {
       name: "Krish's Card",
@@ -19,6 +20,7 @@ export default function SimulationControls({ onScanDispatched }) {
       uid: 'E5F6A7B8',
       bg: 'hover:bg-purple-50 hover:border-purple-300 text-purple-900',
       badge: 'bg-purple-100 text-purple-800',
+      simulatedName: 'Krish Shah',
     },
     {
       name: "Pal's Card",
@@ -26,6 +28,7 @@ export default function SimulationControls({ onScanDispatched }) {
       uid: 'C9D0E1F2',
       bg: 'hover:bg-indigo-50 hover:border-indigo-300 text-indigo-900',
       badge: 'bg-indigo-100 text-indigo-800',
+      simulatedName: 'Pal Patel',
     },
     {
       name: "Krisha's Card",
@@ -33,20 +36,30 @@ export default function SimulationControls({ onScanDispatched }) {
       uid: 'B3C4D5E6',
       bg: 'hover:bg-emerald-50 hover:border-emerald-300 text-emerald-900',
       badge: 'bg-emerald-100 text-emerald-800',
+      simulatedName: 'Krisha Desai',
+    },
+    {
+      name: 'Tejas Singh',
+      studentId: 'Unknown',
+      uid: 'D1E2F3A4',
+      bg: 'hover:bg-rose-50 hover:border-rose-300 text-rose-900',
+      badge: 'bg-rose-100 text-rose-800',
+      simulatedName: 'Tejas Singh',
     },
     {
       name: 'Unknown Card',
-      studentId: 'Unregistered',
+      studentId: 'Unknown',
       uid: 'F987D654',
-      bg: 'hover:bg-rose-50 hover:border-rose-300 text-rose-900',
-      badge: 'bg-rose-100 text-rose-800',
+      bg: 'hover:bg-slate-100 hover:border-slate-300 text-slate-800',
+      badge: 'bg-slate-200 text-slate-700',
+      simulatedName: 'Unknown Card',
     },
   ];
 
   const handleSimulate = async (card) => {
     try {
       setLoadingCard(card.uid);
-      const res = await api.sendTestScan(card.uid, 'SIMULATOR_TEST');
+      const res = await api.sendTestScan(card.uid, 'SIMULATOR_TEST', card.simulatedName);
       if (onScanDispatched) {
         onScanDispatched(res);
       }
@@ -75,11 +88,11 @@ export default function SimulationControls({ onScanDispatched }) {
           </span>
         </div>
         <p className="text-xs text-slate-500">
-          Click any card to trigger backend verification and 10s cooldown
+          Click any card to trigger backend verification, 10s cooldown, or unknown card rejection
         </p>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-5 gap-3">
+      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
         {simulateCards.map((card) => {
           const isLoading = loadingCard === card.uid;
           return (

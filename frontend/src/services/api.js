@@ -51,8 +51,8 @@ export const api = {
     return res.data;
   },
 
-  sendTestScan: async (uid, deviceId = 'SIMULATOR_01') => {
-    const res = await apiClient.post('/attendance/test-scan', { uid, deviceId });
+  sendTestScan: async (uid, deviceId = 'SIMULATOR_01', simulatedName = null) => {
+    const res = await apiClient.post('/attendance/test-scan', { uid, deviceId, simulatedName });
     return res.data;
   },
 };

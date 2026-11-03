@@ -51,6 +51,7 @@ export async function processRfidScan({
   uid,
   deviceId = 'ESP32_01',
   eventId,
+  simulatedName = null,
   socketIo = null,
   mqttPublish = null,
 }) {
@@ -90,13 +91,14 @@ export async function processRfidScan({
 
   // If unregistered / unknown card
   if (!student) {
-    console.log(`[Attendance Service] UNKNOWN RFID card scanned: ${cleanUid}`);
+    const unknownDisplayName = simulatedName ? `${simulatedName} (Unregistered)` : 'Unknown RFID Card';
+    console.log(`[Attendance Service] UNKNOWN RFID card scanned: ${cleanUid} - ${unknownDisplayName}`);
 
     await ScanEvent.create({
       eventId: validEventId,
       uid: cleanUid,
       student: null,
-      studentName: 'Unknown RFID Card',
+      studentName: unknownDisplayName,
       studentId: null,
       deviceId,
       timestamp: now,
@@ -109,7 +111,7 @@ export async function processRfidScan({
       eventId: validEventId,
       uid: cleanUid,
       status: 'unknown',
-      studentName: 'Unknown RFID Card',
+      studentName: unknownDisplayName,
       studentId: null,
       deviceId,
       timestamp: now.toISOString(),
