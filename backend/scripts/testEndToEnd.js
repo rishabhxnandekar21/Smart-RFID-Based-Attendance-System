@@ -56,10 +56,10 @@ async function runTests() {
     }
     console.log('  ✓ Test 0 Passed: Server and MongoDB are healthy.\n');
 
-    // 2. Test 1: Successful scan for Rishabh Nandekar (A1B2C3D4)
-    console.log("[Test 1] Testing Successful Scan for Rishabh Nandekar (A1B2C3D4)...");
+    // 2. Test 1: Successful scan for Rishabh Nandekar (F9663015)
+    console.log("[Test 1] Testing Successful Scan for Rishabh Nandekar (F9663015)...");
     const scan1 = await makeRequest('/api/attendance/test-scan', 'POST', {
-      uid: 'A1B2C3D4',
+      uid: 'F9663015',
       deviceId: 'TEST_RUNNER',
     });
     console.log('  -> Scan 1 response:', scan1.data);
@@ -75,7 +75,7 @@ async function runTests() {
     console.log("[Test 2] Testing Immediate Duplicate Scan for Rishabh after 2 seconds...");
     await delay(2000);
     const scan2 = await makeRequest('/api/attendance/test-scan', 'POST', {
-      uid: 'A1B2C3D4',
+      uid: 'F9663015',
       deviceId: 'TEST_RUNNER',
     });
     console.log('  -> Scan 2 response:', scan2.data);
